@@ -1,6 +1,7 @@
 $(document).ready(function () {
   //console log
   console.log("Hello World");
+  var currentDay = moment().format("(MM/d/YYYY)");
   // function
   function searchCity(city) {
     var queryURL =
@@ -12,6 +13,17 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       console.log(response);
+      var cityName = $("<h3>").text(response.name);
+      var dateVar = $("<h3>").text(currentDay);
+      var weatherIcon = $("<img>").attr(
+        "src",
+        "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png"
+      );
+      console.log(weatherIcon);
+      $("#cardText").empty();
+      $("#cardText").attr("class", "d-inline");
+      $("#cardText").append(cityName, dateVar, weatherIcon);
+      //   $("#cardText").append(weatherIcon);
     });
   }
 
