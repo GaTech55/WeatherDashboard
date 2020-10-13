@@ -1,6 +1,6 @@
 $(document).ready(function () {
   //console log
-  console.log("Hello World");
+  console.log("What's the good word?");
   var currentDay = moment().format("(MM/d/YYYY)");
   // function
   function searchCity(city) {
@@ -15,16 +15,37 @@ $(document).ready(function () {
       console.log(response);
       var cityName = $("<h3>").text(response.name);
       var dateVar = $("<h3>").text(currentDay);
+      var tempVar = $("<p>").text(
+        "Temperature: " + response.main.temp + "&deg; F"
+      );
+      var humidityVar = $("<p>").text(
+        "Humidity: " + response.main.humidity + "%"
+      );
+      var windVar = $("<p>").text(
+        "Wind Speed: " + response.wind.speed + " MPH"
+      );
+      var uvVar = $("<p>").text(response.main.temp);
+      var latVar = $("<p>").text(response.coord.lat);
+      var lonVar = $("<p>").text(response.coord.lat);
       var weatherIcon = $("<img>").attr(
         "src",
         "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png"
       );
-      console.log(weatherIcon);
+      console.log(parseInt(latVar));
+      console.log(parseInt(lonVar));
       $("#cardText").empty();
       $("#cardText").attr("class", "d-inline");
-      $("#cardText").append(cityName, dateVar, weatherIcon);
+      $("#cardText").append(
+        cityName,
+        dateVar,
+        weatherIcon,
+        tempVar,
+        humidityVar,
+        windVar
+      );
       //   $("#cardText").append(weatherIcon);
     });
+    // function uvIndex()
   }
 
   // Event handler for user clicking the search button
