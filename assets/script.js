@@ -136,13 +136,21 @@ $(document).ready(function () {
   // Event handler for user clicking the search button
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
-    var timeValue = name1;
+    var cityKey = "NameInput" + inputCity,
+      inputCity;
     var inputCity = $("#searchInput").val().trim();
 
     searchCity(inputCity);
     console.log(inputCity);
-    localStorage.setItem(timeValue, inputCity);
+    localStorage.setItem("NameInput" + inputCity, inputCity);
+    var newButton = $("<button>")
+      .text(inputCity)
+      .attr("id", inputCity)
+      .addClass("listDkb btn btn-light btn-outline-dark");
+    // $("#" + cityKey).val(localStorage.getItem(cityKey));
+    newButton.val(localStorage.getItem(cityKey));
+    $("#cityList").after(newButton);
   });
-});
 
-// On click for history list.  will use a get item
+  //   $("#Atlanta").val(localStorage.getItem("NameInputAtlanta"));
+});
