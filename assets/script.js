@@ -3,7 +3,7 @@ $(document).ready(function () {
   console.log("What's the good word?");
   var currentDay = moment().format("(MM/D/YYYY)");
   var apiKey = "a0d7c3074ce18b5e27c1432a4af93068";
-
+  //   $("#cardContainer").addClass("card");
   //          FUNCTION
 
   function searchCity(city) {
@@ -41,8 +41,15 @@ $(document).ready(function () {
       );
 
       $("#cardText").empty();
+      $("#forecastTitle").empty();
+      $("#card0").empty();
+      $("#card1").empty();
+      $("#card2").empty();
+      $("#card3").empty();
+      $("#card4").empty();
       $("#cardText").append(
         cityName,
+        " ",
         dateVar,
         weatherIcon,
         tempVar,
@@ -83,7 +90,7 @@ $(document).ready(function () {
       }).then(function (response) {
         console.log(response);
         var forecastTitle = "5-Day Forecast:";
-        $("#forecastTitle").append(forecastTitle);
+        $("#forecastTitle").append(forecastTitle).prepend("<br>");
         // FOR LOOP
         for (var i = 0; i < 5; i++) {
           var date1 = moment()
@@ -116,6 +123,7 @@ $(document).ready(function () {
     event.preventDefault();
     var timeValue = inputCity;
     var inputCity = $("#searchInput").val().trim();
+
     searchCity(inputCity);
     localStorage.setItem(timeValue, inputCity);
   });
