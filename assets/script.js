@@ -46,6 +46,10 @@ $(document).ready(function () {
       $("#card2").empty();
       $("#card3").empty();
       $("#card4").empty();
+      $("#noBorder").attr(
+        "style",
+        "border: 1px solid rgba(0,0,0,.125) !important"
+      );
       $("#cardText").append(
         cityName,
         " ",
@@ -70,9 +74,20 @@ $(document).ready(function () {
         method: "GET",
       }).then(function (responseUV) {
         // console.log(responseUV);
-        var uvValue = $("<div>").text("UV Index: " + responseUV.value);
-        // console.log(responseUV.value);
-        $("#cardText").append(uvValue);
+        var uvButton = $("<button>").text(responseUV.value);
+        uvButton.addClass("d-inline");
+        var uvValue = $("<div>").text("UV Index: ");
+        uvValue.addClass("d-inline");
+
+        if (responseUV.value >= 3 && responseUV.value <= 5) {
+          uvButton.attr("class", "btn-warning");
+        } else if (responseUV.value > 5) {
+          uvButton.attr("class", "btn-danger");
+        } else {
+          uvButton.attr("class", "btn-success");
+        }
+
+        $("#cardText").append(uvValue, uvButton);
       });
 
       //          5 Day Forecast
