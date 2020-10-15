@@ -6,7 +6,7 @@ $(document).ready(function () {
   // function
   function searchCity(city) {
     var queryURL =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" +
       city +
       "&units=imperial&appid=" +
       apiKey;
@@ -50,7 +50,7 @@ $(document).ready(function () {
       );
 
       var queryUVindex =
-        "https://api.openweathermap.org/data/2.5/uvi?lat=" +
+        "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/uvi?lat=" +
         latVar +
         "&lon=" +
         lonVar +
@@ -68,7 +68,7 @@ $(document).ready(function () {
 
       //   api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
       var queryUrlForecast =
-        "https://api.openweathermap.org/data/2.5/forecast?q=" +
+        "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
         "&units=imperial&cnt=5&appid=" +
         apiKey;
