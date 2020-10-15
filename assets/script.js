@@ -147,7 +147,7 @@ $(document).ready(function () {
       .text(inputCity)
       .attr("id", inputCity)
       .addClass("listDkb btn btn-light btn-outline-dark");
-    // $("#" + cityKey).val(localStorage.getItem(cityKey));
+    $("#" + cityKey).val(localStorage.getItem(cityKey));
     newButton.val(localStorage.getItem(cityKey));
     $("#cityList").after(newButton);
   });
