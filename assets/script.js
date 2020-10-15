@@ -20,7 +20,7 @@ $(document).ready(function () {
       var dateVar = $("<h3>").text(currentDay);
       dateVar.addClass("d-inline");
       var tempVar = $("<p>").text(
-        "Temperature: " + response.main.temp + " \xB0 "
+        "Temperature: " + response.main.temp + " \xB0 F"
       );
       var humidityVar = $("<p>").text(
         "Humidity: " + response.main.humidity + "%"
@@ -76,13 +76,27 @@ $(document).ready(function () {
       $.ajax({
         url: queryUrlForecast,
         method: "GET",
-      }).then(function (responseFive) {
-        console.log(responseFive);
-        var date1 = responseFive.list[0].dt_txt;
-        var icon1 = responseFive.list[0].weather[0].icon;
-        var temp1 = responseFive.list[0].main.temp;
-        var hum1 = responseFive.list[0].main.humidity;
-        $("#card1").append(date1, icon1, temp1, hum1);
+      }).then(function (response) {
+        console.log(response);
+        // FOR LOOP
+        for (var i = 0; i < 5; i++) {
+          var date1 = response.list[i].dt_txt;
+          var icon1 = $("<img>").attr(
+            "src",
+            "https://openweathermap.org/img/wn/" +
+              response.list[i].weather[0].icon +
+              "@2x.png"
+          );
+          var temp1 = $("<p>").text(
+            "Temp: " + response.list[i].main.temp + " \xB0 F"
+          );
+          var hum1 = $("<p>").text(
+            "Humidity: " + response.list[i].main.humidity + "%"
+          );
+          $("#card1")
+            .append(date1, icon1, temp1, hum1)
+            .addClass("card text-white bg-primary mb-3");
+        }
       });
     });
   }
