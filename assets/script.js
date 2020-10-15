@@ -3,7 +3,9 @@ $(document).ready(function () {
   console.log("What's the good word?");
   var currentDay = moment().format("(MM/D/YYYY)");
   var apiKey = "a0d7c3074ce18b5e27c1432a4af93068";
-  // function
+
+  //          FUNCTION
+
   function searchCity(city) {
     var queryURL =
       "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -20,7 +22,7 @@ $(document).ready(function () {
       var dateVar = $("<h3>").text(currentDay);
       dateVar.addClass("d-inline");
       var tempVar = $("<p>").text(
-        "Temperature: " + response.main.temp + " \xB0 F"
+        "Temperature: " + response.main.temp + " \xB0F"
       );
       var humidityVar = $("<p>").text(
         "Humidity: " + response.main.humidity + "%"
@@ -39,7 +41,6 @@ $(document).ready(function () {
       );
 
       $("#cardText").empty();
-      //   $("#cardText").attr("class", "d-inline");
       $("#cardText").append(
         cityName,
         dateVar,
@@ -48,6 +49,8 @@ $(document).ready(function () {
         humidityVar,
         windVar
       );
+
+      //          UV INDEX
 
       var queryUVindex =
         "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/uvi?lat=" +
@@ -66,7 +69,8 @@ $(document).ready(function () {
         $("#cardText").append(uvValue);
       });
 
-      //   api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
+      //          5 Day Forecast
+
       var queryUrlForecast =
         "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
@@ -78,9 +82,14 @@ $(document).ready(function () {
         method: "GET",
       }).then(function (response) {
         console.log(response);
+        var forecastTitle = "5-Day Forecast:";
+        $("#forecastTitle").append(forecastTitle);
         // FOR LOOP
         for (var i = 0; i < 5; i++) {
-          var date1 = response.list[i].dt_txt;
+          var date1 = moment()
+            .add(i + 1, "days")
+            .format("MM/DD/YYYY");
+          //   var date1 = Date(response.list[i].dt * 1000);
           var icon1 = $("<img>").attr(
             "src",
             "https://openweathermap.org/img/wn/" +
@@ -88,14 +97,15 @@ $(document).ready(function () {
               "@2x.png"
           );
           var temp1 = $("<p>").text(
-            "Temp: " + response.list[i].main.temp + " \xB0 F"
+            "Temp: " + response.list[i].main.temp + " \xB0F"
           );
           var hum1 = $("<p>").text(
             "Humidity: " + response.list[i].main.humidity + "%"
           );
-          $("#card1")
+          $("#card" + i)
             .append(date1, icon1, temp1, hum1)
-            .addClass("card text-white bg-primary mb-3");
+            .addClass("card text-white bg-primary mb-3")
+            .attr("style", "max-width: 30rem");
         }
       });
     });
@@ -110,7 +120,5 @@ $(document).ready(function () {
     localStorage.setItem(timeValue, inputCity);
   });
 });
-
-// api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=a0d7c3074ce18b5e27c1432a4af93068
 
 // On click for history list.  will use a get item
