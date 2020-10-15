@@ -1,9 +1,8 @@
 $(document).ready(function () {
-  //console log
   console.log("What's the good word?");
   var currentDay = moment().format("(MM/D/YYYY)");
   var apiKey = "a0d7c3074ce18b5e27c1432a4af93068";
-  //   $("#cardContainer").addClass("card");
+  var name1 = $("#searchInput").val().trim();
   //          FUNCTION
 
   function searchCity(city) {
@@ -16,7 +15,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
+      //   console.log(response);
       var cityName = $("<h3>").text(response.name);
       cityName.addClass("d-inline");
       var dateVar = $("<h3>").text(currentDay);
@@ -33,8 +32,8 @@ $(document).ready(function () {
       var uvVar = $("<p>").text(response.main.temp);
       var latVar = response.coord.lat;
       var lonVar = response.coord.lon;
-      console.log(response.coord.lat);
-      console.log(response.coord.lon);
+      //   console.log(response.coord.lat);
+      //   console.log(response.coord.lon);
       var weatherIcon = $("<img>").attr(
         "src",
         "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png"
@@ -65,14 +64,14 @@ $(document).ready(function () {
         "&lon=" +
         lonVar +
         "&appid=a0d7c3074ce18b5e27c1432a4af93068";
-      console.log(queryUVindex);
+      //   console.log(queryUVindex);
       $.ajax({
         url: queryUVindex,
         method: "GET",
       }).then(function (responseUV) {
-        console.log(responseUV);
+        // console.log(responseUV);
         var uvValue = $("<div>").text("UV Index: " + responseUV.value);
-        console.log(responseUV.value);
+        // console.log(responseUV.value);
         $("#cardText").append(uvValue);
       });
 
@@ -83,12 +82,12 @@ $(document).ready(function () {
         city +
         "&units=imperial&cnt=5&appid=" +
         apiKey;
-      console.log(queryUrlForecast);
+      //   console.log(queryUrlForecast);
       $.ajax({
         url: queryUrlForecast,
         method: "GET",
       }).then(function (response) {
-        console.log(response);
+        // console.log(response);
         var forecastTitle = "5-Day Forecast:";
         $("#forecastTitle").append(forecastTitle).prepend("<br>");
         // FOR LOOP
@@ -109,6 +108,7 @@ $(document).ready(function () {
           var hum1 = $("<p>").text(
             "Humidity: " + response.list[i].main.humidity + "%"
           );
+
           $("#card" + i)
             .append(date1, icon1, temp1, hum1)
             .addClass("card text-white bg-primary mb-3")
@@ -121,10 +121,11 @@ $(document).ready(function () {
   // Event handler for user clicking the search button
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
-    var timeValue = inputCity;
+    var timeValue = name1 + 1;
     var inputCity = $("#searchInput").val().trim();
 
     searchCity(inputCity);
+    console.log(inputCity);
     localStorage.setItem(timeValue, inputCity);
   });
 });
