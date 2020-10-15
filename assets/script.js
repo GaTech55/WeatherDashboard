@@ -121,7 +121,7 @@ $(document).ready(function () {
   // Event handler for user clicking the search button
   $("#searchBtn").on("click", function (event) {
     event.preventDefault();
-    var timeValue = name1 + 1;
+    var timeValue = name1;
     var inputCity = $("#searchInput").val().trim();
 
     searchCity(inputCity);
