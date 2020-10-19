@@ -58,7 +58,7 @@ To access this project you will need to visit my GitHub page and the "WeatherDas
 
 | **Commits** | **Contributor** |
 
-| 17 | [GaTech55](https://github.com/GaTech55)|
+| 20 | [GaTech55](https://github.com/GaTech55)|
 
 ## Copyright
 
