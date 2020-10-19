@@ -1,7 +1,7 @@
 $(document).ready(function () {
   console.log("What's the good word?");
   var currentDay = moment().format("(MM/D/YYYY)");
-  var apiKey = "a0d7c3074ce18b5e27c1432a4af93068";
+  var apiKey = "07ca48276ff85b3f0066212278e351d7";
   var name1 = $("#searchInput").val().trim();
   //          FUNCTION
 
@@ -15,7 +15,7 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      //   console.log(response);
+      // console.log(response);
       var cityName = $("<h3>").text(response.name);
       cityName.addClass("d-inline");
       var dateVar = $("<h3>").text(currentDay);
@@ -67,7 +67,7 @@ $(document).ready(function () {
         latVar +
         "&lon=" +
         lonVar +
-        "&appid=a0d7c3074ce18b5e27c1432a4af93068";
+        "&appid=07ca48276ff85b3f0066212278e351d7";
       //   console.log(queryUVindex);
       $.ajax({
         url: queryUVindex,
@@ -133,24 +133,35 @@ $(document).ready(function () {
     });
   }
 
-  // Event handler for user clicking the search button
-  $("#searchBtn").on("click", function (event) {
+  // Function adjusted to add historic selections and make them clickable for a new search.
+
+  function clickButton(event) {
+    console.log("hello world");
     event.preventDefault();
     var cityKey = "NameInput" + inputCity,
       inputCity;
     var inputCity = $("#searchInput").val().trim();
-
-    searchCity(inputCity);
     console.log(inputCity);
-    localStorage.setItem("NameInput" + inputCity, inputCity);
-    var newButton = $("<button>")
-      .text(inputCity)
-      .attr("id", inputCity)
-      .addClass("listDkb btn btn-light btn-outline-dark");
-    $("#" + cityKey).val(localStorage.getItem(cityKey));
-    newButton.val(localStorage.getItem(cityKey));
-    $("#cityList").after(newButton);
-  });
 
+    search(inputCity);
+
+    function search(inputCity) {
+      searchCity(inputCity);
+      // console.log(inputCity);
+      localStorage.setItem("NameInput" + inputCity, inputCity);
+      var newButton = $("<button>")
+        .text(inputCity)
+        .attr("id", inputCity)
+        .addClass("listDkb btn btn-light btn-outline-dark")
+        .on("click", function () {
+          search(inputCity);
+        });
+      $("#" + cityKey).val(localStorage.getItem(cityKey));
+      newButton.val(localStorage.getItem(cityKey));
+      $("#cityList").after(newButton);
+    }
+  }
+  // Event handler for user clicking the search button
+  $("#searchBtn").on("click", clickButton);
   //   $("#Atlanta").val(localStorage.getItem("NameInputAtlanta"));
 });
